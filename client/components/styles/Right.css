@@ -1,0 +1,35 @@
+@media screen and (max-width: 500px) {
+    #suggests-container{
+        overflow: scroll;
+        white-space: nowrap;
+        width: 52vh;
+    }
+    #friend-link-r{
+        display: inline-flex;
+    }
+}
+
+#rightPanel{
+    background: grey;
+    border-radius: 10px;
+}
+
+.profilePic{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: block;
+}
+
+#suggests-container{
+    display: block;
+    height: inherit;
+    margin: 0 5px;
+    justify-content: center;
+}
+
+#friend-link-r p{
+    font-size: 10pt;
+    display: block;
+    margin: 0;
+}

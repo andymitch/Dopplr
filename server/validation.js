@@ -6,8 +6,9 @@ const Joi = require('@hapi/joi');
 const registerValidation = data => {
     const schema = {
         name: Joi.string().min(6).required(),
-        email: Joi.string().min(6).required().email(),
-        password: Joi.string().min(6).required()
+        handle: Joi.string().min(6).required().alphanum(),
+        password: Joi.string().min(6).required(),
+        repeat_password: Joi.ref('password')
     };
     return Joi.validate(data, schema);
 };
@@ -15,7 +16,7 @@ const registerValidation = data => {
 //Login validation
 const loginValidation = data => {
     const schema = {
-        email: Joi.string().min(6).required().email(),
+        handle: Joi.string().min(6).required(),
         password: Joi.string().min(6).required()
     };
     return Joi.validate(data, schema);
@@ -35,7 +36,6 @@ const writeMessageValidation = data => {
 //Read message validation
 const readMessageValidation = data => {
     const schema = {
-        user_id: Joi.string().length(24).required(),
         number: Joi.number()
     };
     return Joi.validate(data, schema);

@@ -1,0 +1,28 @@
+@media screen and (max-width: 500px) {
+    h2{
+        text-orientation: upright;
+        writing-mode: vertical-lr;
+    }
+}
+
+.profilePic{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.friend-link-c{
+    display: flex;
+    flex-wrap: wrap;
+    background: rgba(255, 0, 0, 0.5)
+}
+
+.friend-link h1{
+    font-size: 14pt;
+}
+
+#friends-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-content:flex-start;
+}

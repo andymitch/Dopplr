@@ -1,18 +1,17 @@
 const router = require('express').Router();
 const verify = require('../verifyToken');
 const {readMessageValidation, writeMessageValidation} = require('../validation');
-const User = require('../model/User');
-const Message = require('../model/Message');
+const User = require('../models/User');
+const Message = require('../models/Message');
 const mongoose = require('mongoose');
 
 //Read message feed
 router.get('/', verify, async (req,res) => {
-    console.log('user_id: ' + req.query.user_id);
-    console.log('number: ' + req.query.number);
-    //const {error} = readMessageValidation(req.body);
-    //if(error) return res.status(400).send('UH OH: ' + error.details[0].message);
+    const {error} = readMessageValidation(req.body);
+    if(error) return res.status(400).send('UH OH: ' + error.details[0].message);
 
     const user = await User.findOne({_id: mongoose.Types.ObjectId(req.query.user_id)});
+    if(!user) return res.status(400).send('User not found');
     const message = await Message.findOne({_id: mongoose.Types.ObjectId(user.messages[req.query.number])});
     if(!message) return res.status(400).send('Message not found');
     res.send(message);
@@ -29,12 +28,12 @@ router.post('/', verify, async (req,res) => {
     let Thread, users;
     if(req.body.message_id){
         Thread = await Message.findOne({_id: mongoose.Types.ObjectId(req.body.message_id)});
-        if(!Thread) return res.status(400).send('Message doesn\'t exist');
+        if(!Thread) return res.status(400).send('Message not found');
     }else if(req.body.users){
         users = req.body.users.map(user => mongoose.Types.ObjectId(user));
         Thread = new Message({users: users, thread: []});
     }else{
-        return res.status(400).send("insufficient lookup information");
+        return res.status(400).send('insufficient lookup information');
     }
 
     Thread.thread.push(msg);

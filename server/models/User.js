@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         max: 255,
         min: 6
     },
-    email:{
+    handle:{
         type: String,
         required: true,
         max: 255,
@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
     },
     messages: [mongoose.Schema.Types.ObjectId],
     posts: [mongoose.Schema.Types.ObjectId],
-    friends: [mongoose.Schema.Types.ObjectId]
+    friends: [mongoose.Schema.Types.ObjectId],
+    notifications: [String]
 });
 
 module.exports = mongoose.model('User', userSchema);
